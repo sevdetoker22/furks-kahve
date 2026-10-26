@@ -31,35 +31,36 @@ export default function Home() {
   return (
     <main id="main-content">
       <section className="relative isolate overflow-hidden bg-cream">
-        <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-[1600px] lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="relative z-10 flex items-center px-5 py-20 sm:px-8 lg:px-10 lg:py-24 xl:pl-[max(2.5rem,calc((100vw-80rem)/2))]">
+        <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-[1600px] lg:h-[calc(100svh-5rem)] lg:min-h-[38rem] lg:max-h-[52rem] lg:grid-cols-[1.08fr_0.92fr]">
+          <div className="relative z-10 flex items-center px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-12 xl:pl-[max(2.5rem,calc((100vw-80rem)/2))]">
             <div className="max-w-2xl">
-              <p className="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-leaf">
+              <p className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-leaf sm:mb-5">
                 <span className="h-px w-8 bg-leaf" /> Moda&apos;da 2019&apos;dan beri
               </p>
-              <h1 className="font-display text-[clamp(3.6rem,8vw,7.8rem)] font-bold leading-[0.86] tracking-[-0.065em] text-espresso">
+              <h1 className="font-display text-[clamp(3rem,5.5vw,5.45rem)] font-bold leading-[0.9] tracking-[-0.06em] text-espresso">
                 Taze kavrulur,
                 <span className="block italic text-roast">hızlı tükenir.</span>
               </h1>
-              <p className="mt-8 max-w-xl text-base leading-8 text-espresso/70 sm:text-lg">
+              <p className="mt-5 max-w-xl text-base leading-7 text-espresso/70 sm:mt-6 sm:text-lg sm:leading-8">
                 Moda&apos;daki kavurucumuzdan, siparişiniz için küçük partiler halinde kavrulan karakterli ve izlenebilir kahveler.
               </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link href="/kahvelerimiz" className="inline-flex items-center justify-center gap-3 rounded-full bg-roast px-7 py-4 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-roast-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roast">
+              <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:gap-4">
+                <Link href="/kahvelerimiz" className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-roast px-8 py-4 text-base font-bold text-white shadow-[0_12px_30px_rgba(200,100,43,0.28)] transition hover:-translate-y-0.5 hover:bg-roast-dark hover:shadow-[0_16px_34px_rgba(200,100,43,0.34)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roast sm:min-h-16 sm:px-9">
                   Kahvelerimizi gör <ArrowIcon />
                 </Link>
-                <Link href="/toptan" className="inline-flex items-center justify-center gap-3 rounded-full border border-espresso/25 px-7 py-4 text-sm font-bold text-espresso transition hover:-translate-y-0.5 hover:border-espresso hover:bg-espresso hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-espresso">
+                <Link href="/toptan" className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-espresso px-8 py-4 text-base font-bold text-cream shadow-[0_12px_30px_rgba(43,29,20,0.2)] transition hover:-translate-y-0.5 hover:bg-leaf hover:shadow-[0_16px_34px_rgba(43,29,20,0.26)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-espresso sm:min-h-16 sm:px-9">
                   Toptan teklif al
                 </Link>
               </div>
             </div>
           </div>
 
-          <div className="relative min-h-[30rem] overflow-hidden lg:min-h-full">
+          <div className="relative min-h-[22rem] overflow-hidden sm:min-h-[28rem] lg:min-h-full">
             <Image src="/images/furks-roastery-hero.png" alt="Kavurma makinesinde taze kahve çekirdeklerini kontrol eden Furks Kahve kavurucusu" fill priority sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover object-[62%_center]" />
-            <div className="absolute inset-0 bg-gradient-to-r from-espresso/25 via-transparent to-transparent lg:from-espresso/10" />
-            <div className="absolute bottom-5 left-5 rounded-2xl border border-white/20 bg-espresso/85 px-5 py-4 text-cream shadow-xl backdrop-blur sm:bottom-8 sm:left-8">
-              <p className="text-2xl font-bold">Aynı hafta</p>
+            <div className="absolute inset-0 bg-cream/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-cream/30 via-transparent to-espresso/5 lg:from-cream/45" />
+            <div className="absolute bottom-5 left-5 rounded-2xl border border-white/20 bg-espresso/75 px-4 py-3 text-cream shadow-lg backdrop-blur sm:bottom-7 sm:left-7 sm:px-5 sm:py-4">
+              <p className="text-xl font-bold sm:text-2xl">Aynı hafta</p>
               <p className="mt-1 text-xs uppercase tracking-[0.18em] text-cream/65">Kavrulur ve yola çıkar</p>
             </div>
           </div>
@@ -158,15 +159,6 @@ export default function Home() {
               </figure>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="bg-roast px-5 py-20 text-white sm:px-8 sm:py-24">
-        <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-white/65">Kafeniz, restoranınız veya ofisiniz için</p>
-          <h2 className="mt-5 font-display text-4xl font-bold tracking-[-0.05em] sm:text-6xl">Birlikte iyi kahve demleyelim.</h2>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-white/75">Aylık 5 kg ve üzeri siparişlerde özel fiyat, Kadıköy içi ücretsiz teslimat ve ekibinize barista eğitimi.</p>
-          <Link href="/toptan" className="mt-9 inline-flex items-center gap-3 rounded-full bg-espresso px-7 py-4 text-sm font-bold text-cream transition hover:-translate-y-0.5 hover:bg-leaf">Toptan teklif al <ArrowIcon /></Link>
         </div>
       </section>
     </main>
