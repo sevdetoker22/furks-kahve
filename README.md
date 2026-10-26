@@ -20,3 +20,8 @@ npm run build
 
 Proje kararları, Supabase kurulumu ve yayın adımları sonraki geliştirme
 aşamalarında bu dosyaya eklenecek.
+
+## Görsel kaynakları
+
+Ana sayfadaki kavurma atölyesi ve öne çıkan kahve görselleri bu proje için
+OpenAI ImageGen ile özgün olarak üretildi.

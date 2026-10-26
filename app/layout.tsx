@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -9,7 +11,17 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="tr">
-      <body>{children}</body>
+      <body>
+        <a
+          href="#main-content"
+          className="sr-only z-[100] rounded bg-espresso px-4 py-3 text-cream focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          İçeriğe geç
+        </a>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
