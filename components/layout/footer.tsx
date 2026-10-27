@@ -39,7 +39,10 @@ export function Footer() {
       <div className="border-t border-cream/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 text-xs text-cream/45 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
           <p>© {new Date().getFullYear()} Furks Kahve</p>
-          <p>Taze kavrulur, hızlı tükenir.</p>
+          <div className="flex flex-wrap gap-5">
+            <p>Taze kavrulur, hızlı tükenir.</p>
+            <Link href="/admin" prefetch={false} className="text-cream/65 underline underline-offset-4 hover:text-cream">Yönetici girişi</Link>
+          </div>
         </div>
       </div>
     </footer>
