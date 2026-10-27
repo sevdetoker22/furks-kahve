@@ -1,17 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const featuredCoffees = [
-  { name: "Moda Blend", origin: "Brezilya · Kolombiya", notes: "Fındık, sütlü çikolata, karamel", roast: "Orta kavrum", price: "420 ₺", position: "left" },
-  { name: "Etiyopya Yirgacheffe", origin: "Etiyopya", notes: "Yasemin, bergamot, şeftali", roast: "Açık kavrum", price: "540 ₺", position: "center" },
-  { name: "Espresso No. 12", origin: "Brezilya · Guatemala · Etiyopya", notes: "Bitter çikolata, kavrulmuş fındık, pekmez", roast: "Koyu kavrum", price: "440 ₺", position: "right" },
-];
-
-const reasons = [
-  { number: "01", title: "Sipariş üzerine", description: "Kahveyi sipariş geldikten sonra kavuruyoruz; rafta bekletmiyoruz." },
-  { number: "02", title: "İzlenebilir kahve", description: "Her kahvenin hangi çiftlikten ve hangi hasattan geldiğini biliyoruz." },
-  { number: "03", title: "Yanınızda destek", description: "Toptan müşterilerimize makine ayarı ve barista eğitimi desteği veriyoruz." },
-];
+import { connection } from "next/server";
+import { Suspense } from "react";
+import { Footer } from "@/components/layout/footer";
+import { ProductCard } from "@/components/products/product-card";
+import { WhyFurks } from "@/components/home/why-furks";
+import { getFeaturedProducts } from "@/lib/supabase/products";
 
 const testimonials = [
   { quote: "Espresso No. 12'ye geçtikten sonra müşterilerimiz neyi değiştirdiğimizi sordu.", name: "Ece T.", role: "Kıyı Kafe" },
@@ -27,9 +21,73 @@ function ArrowIcon() {
   );
 }
 
+function FeaturedCoffeesLoading() {
+  return (
+    <div
+      className="mt-12 grid gap-6 md:grid-cols-3"
+      aria-label="Öne çıkan kahveler yükleniyor"
+      aria-busy="true"
+    >
+      {Array.from({ length: 3 }, (_, index) => (
+        <div
+          key={index}
+          className="overflow-hidden rounded-[2rem] border border-espresso/10 bg-cream"
+        >
+          <div className="aspect-[4/3] animate-pulse bg-espresso/10" />
+          <div className="space-y-4 p-7">
+            <div className="h-3 w-2/5 animate-pulse rounded-full bg-leaf/15" />
+            <div className="h-7 w-3/4 animate-pulse rounded-full bg-espresso/15" />
+            <div className="h-4 w-full animate-pulse rounded-full bg-espresso/10" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+async function FeaturedCoffees() {
+  await connection();
+  const { products, error } = await getFeaturedProducts();
+
+  if (error) {
+    return (
+      <div
+        role="alert"
+        className="mt-12 rounded-[2rem] border border-roast/20 bg-cream px-6 py-10 text-center"
+      >
+        <p className="font-display text-2xl font-bold text-espresso">
+          Öne çıkan kahveler şu anda yüklenemedi.
+        </p>
+        <p className="mt-3 text-sm leading-6 text-espresso/60">
+          Tüm seçkiyi daha sonra tekrar görüntüleyebilirsiniz.
+        </p>
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="mt-12 rounded-[2rem] border border-espresso/10 bg-cream px-6 py-10 text-center">
+        <p className="font-display text-2xl font-bold text-espresso">
+          Bu hafta için öne çıkan kahve bulunmuyor.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-12 grid gap-6 md:grid-cols-3">
+      {products.map((product, index) => (
+        <ProductCard key={product.id} product={product} index={index} />
+      ))}
+    </div>
+  );
+}
+
 export default function Home() {
   return (
-    <main id="main-content">
+    <>
+      <main id="main-content">
       <section className="relative isolate overflow-hidden bg-cream">
         <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-[1600px] lg:h-[calc(100svh-5rem)] lg:min-h-[38rem] lg:max-h-[52rem] lg:grid-cols-[1.08fr_0.92fr]">
           <div className="relative z-10 flex items-center px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-12 xl:pl-[max(2.5rem,calc((100vw-80rem)/2))]">
@@ -88,46 +146,13 @@ export default function Home() {
             <Link href="/kahvelerimiz" className="inline-flex items-center gap-2 text-sm font-bold text-espresso underline decoration-roast decoration-2 underline-offset-8">Tüm kahveler <ArrowIcon /></Link>
           </div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {featuredCoffees.map((coffee) => (
-              <article key={coffee.name} className="group overflow-hidden rounded-[2rem] border border-espresso/10 bg-cream shadow-[0_18px_50px_rgba(43,29,20,0.06)]">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src="/images/featured-coffees.png" alt={`${coffee.name} kahvesinin tadım notlarını anlatan natürmort`} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" style={{ objectPosition: coffee.position }} />
-                  <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3 py-2 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-espresso backdrop-blur">{coffee.roast}</span>
-                </div>
-                <div className="p-6 sm:p-7">
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-leaf">{coffee.origin}</p>
-                  <div className="mt-3 flex items-start justify-between gap-3">
-                    <h3 className="font-display text-2xl font-bold tracking-[-0.03em] text-espresso">{coffee.name}</h3>
-                    <p className="shrink-0 text-sm font-bold text-roast">{coffee.price}</p>
-                  </div>
-                  <p className="mt-3 text-sm leading-6 text-espresso/60">{coffee.notes}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+          <Suspense fallback={<FeaturedCoffeesLoading />}>
+            <FeaturedCoffees />
+          </Suspense>
         </div>
       </section>
 
-      <section className="bg-cream py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-leaf">Neden Furks?</p>
-              <h2 className="mt-4 font-display text-4xl font-bold tracking-[-0.045em] text-espresso sm:text-6xl">Tazeliği şansa bırakmıyoruz.</h2>
-              <p className="mt-6 max-w-md text-base leading-8 text-espresso/65">İyi kahvenin yalnızca çekirdekle değil; doğru kavurma, şeffaf kaynak ve sürekli destekle mümkün olduğuna inanıyoruz.</p>
-            </div>
-            <ol className="divide-y divide-espresso/15 border-y border-espresso/15">
-              {reasons.map((reason) => (
-                <li key={reason.number} className="grid gap-4 py-7 sm:grid-cols-[4rem_1fr] sm:py-9">
-                  <span className="font-display text-xl italic text-roast">{reason.number}</span>
-                  <div><h3 className="font-display text-2xl font-bold text-espresso sm:text-3xl">{reason.title}</h3><p className="mt-3 max-w-xl leading-7 text-espresso/65">{reason.description}</p></div>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      </section>
+      <WhyFurks />
 
       <section className="overflow-hidden bg-leaf py-20 text-cream sm:py-28">
         <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1fr_0.8fr] lg:items-center lg:px-10">
@@ -161,6 +186,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+      <Footer />
+    </>
   );
 }

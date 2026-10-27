@@ -1,0 +1,267 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  background: #f7f1e6;
+  color: var(--color-espresso);
+  scroll-margin-top: 5rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  max-width: 96rem;
+  margin-inline: auto;
+  padding: 6rem clamp(2.5rem, 6.8vw, 6.5rem) 4rem;
+}
+
+.intro {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  color: var(--color-roast);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.eyebrow span {
+  width: 2.75rem;
+  height: 2px;
+  flex: none;
+  background: currentColor;
+}
+
+.heading {
+  margin-top: 2rem;
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 5.2vw, 5rem);
+  font-weight: 700;
+  line-height: 0.99;
+  letter-spacing: -0.055em;
+}
+
+.heading span {
+  display: block;
+}
+
+.description {
+  max-width: 29rem;
+  margin-top: 1.75rem;
+  color: #776e63;
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.storyLink {
+  display: inline-flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.875rem;
+  border-radius: 999px;
+  padding: 0.875rem 1.875rem;
+  background: #214534;
+  color: #fffdf7;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 180ms ease;
+}
+
+.storyLink:hover {
+  background: #315742;
+}
+
+.storyLink:focus-visible {
+  outline: 2px solid var(--color-roast);
+  outline-offset: 5px;
+}
+
+.botanical {
+  position: relative;
+  height: clamp(13rem, 20vw, 19rem);
+  margin-top: 1.5rem;
+  pointer-events: none;
+}
+
+.botanicalImage {
+  position: absolute;
+  top: 0;
+  left: clamp(-13rem, -12vw, -7rem);
+  width: clamp(28rem, 40vw, 38rem);
+  max-width: none;
+  height: auto;
+}
+
+.reasons {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reason {
+  display: grid;
+  grid-template-columns: clamp(8rem, 12.5vw, 12rem) minmax(0, 1fr);
+  min-height: 12rem;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding-block: 1.25rem;
+}
+
+.reason + .reason {
+  border-top: 1px solid #d9cdbb;
+}
+
+.reason:first-child {
+  padding-top: 0;
+}
+
+.reason:last-child {
+  padding-bottom: 0;
+}
+
+.artwork {
+  position: relative;
+  aspect-ratio: 1;
+  isolation: isolate;
+}
+
+.artwork::before {
+  position: absolute;
+  z-index: -1;
+  inset: 9%;
+  border-radius: 50%;
+  background: #eee5d4;
+  content: "";
+}
+
+.reasonImage {
+  object-fit: contain;
+}
+
+.reasonCopy {
+  min-width: 0;
+}
+
+.accent {
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  margin-bottom: 1rem;
+  background: var(--color-roast);
+}
+
+.reasonTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.1vw, 2rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.reasonDescription {
+  margin-top: 0.5rem;
+  color: #776e63;
+  font-size: clamp(0.9375rem, 1.25vw, 1.125rem);
+  line-height: 1.55;
+}
+
+@media (max-width: 1023px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+    padding: 3.5rem 2rem;
+  }
+
+  .heading {
+    max-width: 39rem;
+    margin-top: 1.5rem;
+    font-size: clamp(2.5rem, 7vw, 4.25rem);
+    line-height: 1.04;
+  }
+
+  .heading span {
+    display: inline;
+  }
+
+  .description {
+    max-width: 35rem;
+    margin-top: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .storyLink {
+    margin-top: 1.5rem;
+  }
+
+  .botanical {
+    display: none;
+  }
+
+  .reason {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    min-height: 10rem;
+    gap: 2rem;
+    padding-block: 1.25rem;
+  }
+
+  .reasonTitle {
+    font-size: 1.75rem;
+    text-wrap: initial;
+  }
+
+  .reasonDescription {
+    max-width: 28rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .layout {
+    gap: 2rem;
+    padding: 3rem 1.25rem;
+  }
+
+  .eyebrow {
+    gap: 0.875rem;
+    font-size: 0.6875rem;
+  }
+
+  .eyebrow span {
+    width: 2rem;
+  }
+
+  .storyLink {
+    min-height: 3.25rem;
+    padding-inline: 1.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .reason {
+    grid-template-columns: clamp(4.5rem, 23vw, 6rem) minmax(0, 1fr);
+    min-height: 9.5rem;
+    gap: 1rem;
+  }
+
+  .accent {
+    width: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .reasonTitle {
+    font-size: 1.5rem;
+  }
+
+  .reasonDescription {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+}

@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { BrandLogo } from "@/components/brand/brand-logo";
 
-const navigation = [
+const primaryNavigation = [
+  { href: "/", label: "Anasayfa" },
   { href: "/kahvelerimiz", label: "Kahvelerimiz" },
   { href: "/hikayemiz", label: "Hikâyemiz" },
   { href: "/toptan", label: "Toptan" },
@@ -15,35 +17,39 @@ export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
   return (
     <header className="sticky top-0 z-50 border-b border-espresso/10 bg-cream/95 backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
         <Link
           href="/"
-          className="font-display text-2xl font-bold tracking-[-0.04em] text-espresso"
+          aria-label="Furks Kahve ana sayfa"
+          className="shrink-0 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-roast"
           onClick={() => setIsOpen(false)}
         >
-          Furks Kahve<span className="text-roast">.</span>
+          <BrandLogo />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Ana menü">
-          {navigation.map((item) => (
+        <nav
+          className={`hidden items-center md:flex ${
+            pathname === "/" ? "gap-8" : "gap-5 xl:gap-8"
+          }`}
+          aria-label="Ana menü"
+        >
+          {primaryNavigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
               className={`text-sm font-semibold transition-colors hover:text-roast ${
-                pathname === item.href ? "text-roast" : "text-espresso/75"
+                isActive(item.href) ? "text-roast" : "text-espresso/75"
               }`}
             >
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/toptan"
-            className="rounded-full bg-roast px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5 hover:bg-roast-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roast"
-          >
-            Teklif al
-          </Link>
         </nav>
 
         <button
@@ -77,28 +83,25 @@ export function Header() {
       <nav
         id="mobile-navigation"
         aria-label="Mobil menü"
+        inert={!isOpen}
         className={`overflow-hidden border-t border-espresso/10 bg-cream transition-[max-height,opacity] duration-300 md:hidden ${
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="mx-auto flex max-w-7xl flex-col px-5 py-5">
-          {navigation.map((item) => (
+          {primaryNavigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
               onClick={() => setIsOpen(false)}
-              className="border-b border-espresso/10 py-4 text-lg font-semibold text-espresso last:border-0"
+              className={`border-b border-espresso/10 py-4 text-lg font-semibold transition-colors last:border-0 ${
+                isActive(item.href) ? "text-roast" : "text-espresso"
+              }`}
             >
               {item.label}
             </Link>
           ))}
-          <Link
-            href="/toptan"
-            onClick={() => setIsOpen(false)}
-            className="mt-4 rounded-full bg-roast px-5 py-3.5 text-center font-bold text-white"
-          >
-            Toptan teklif al
-          </Link>
         </div>
       </nav>
     </header>
