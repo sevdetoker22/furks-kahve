@@ -52,10 +52,6 @@ export async function POST(request: Request) {
   if (retryAfter) return failure("Biraz hızlı ilerledik. Bir dakika sonra tekrar deneyebilirsin.", 429, { "Retry-After": String(retryAfter) });
   const messages = parseMessages(await readBody(request));
   if (!messages) return failure("Mesajını 600 karakteri geçmeyecek şekilde yeniden yazabilir misin?", 400);
-  if (!process.env.AI_GATEWAY_API_KEY && !process.env.VERCEL_OIDC_TOKEN) {
-    return failure("Kahve asistanı şu anda kullanıma hazır değil. Kahvelerimizi seçkiden keşfedebilirsin.", 503);
-  }
-
   const signal = AbortSignal.any([request.signal, AbortSignal.timeout(22_000)]);
   try {
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -70,13 +66,17 @@ export async function POST(request: Request) {
     if (!products.some((p) => p.in_stock)) {
       return Response.json({ message: "Şu anda stokta önerebileceğim bir kahve bulunmuyor. Yeni kavrumlar için yakında tekrar uğrayabilirsin.", recommendations: [] }, { headers: privateHeaders });
     }
+    // The SDK also resolves rotating OIDC from Vercel's request context.
+    // Checking process.env alone would reject valid deployed requests.
     const draft = await generateCoffeeReply(products, messages, signal);
     return Response.json(resolveReply(draft, products), { headers: privateHeaders });
   } catch (error) {
     const status = typeof error === "object" && error !== null && "statusCode" in error ? error.statusCode : undefined;
     // Provider responses can contain request text or credentials. Log codes only.
     console.error("coffee_assistant_unavailable", { status: typeof status === "number" ? status : "generation_failed", timeout: signal.aborted });
-    return failure(signal.aborted
+    return failure(status === 401 || status === 403
+      ? "Kahve asistanı şu anda kullanıma hazır değil. Kahvelerimizi seçkiden keşfedebilirsin."
+      : signal.aborted
       ? "Yanıt biraz uzun sürdü. Lütfen tekrar dene."
       : "Şu anda yanıt hazırlayamıyorum. Biraz sonra tekrar deneyebilir veya kahve seçkimize göz atabilirsin.", 503);
   }
