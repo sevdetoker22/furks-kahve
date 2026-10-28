@@ -18,13 +18,13 @@ test("only bounded, alternating user and assistant messages enter the model cont
   assert.equal(parseMessages(null), null);
 });
 
-test("invented, duplicate and out-of-stock product recommendations are rejected", () => {
+test("invented and out-of-stock recommendations are rejected and duplicates are collapsed", () => {
   for (const id of ["999", "4", "2 OR 1=1"]) {
     const output = draft(); output.recommendations[0].productId = id;
     assert.equal(validateDraft(output, products), null);
   }
   const duplicate = draft(); duplicate.recommendations.push(...duplicate.recommendations);
-  assert.equal(validateDraft(duplicate, products), null);
+  assert.equal(validateDraft(duplicate, products).recommendations.length, 1);
 });
 
 test("every matched tasting note must belong to the selected coffee", () => {
@@ -63,4 +63,6 @@ test("provider diagnostics retain known codes without leaking raw request text",
   assert.equal(providerErrorCode({ responseBody: "<html>private request</html>" }), "provider_error");
   assert.equal(providerErrorCode(null), "provider_error");
   assert.equal(providerErrorCode(new Error("This model is not available on the free tier")), "free_tier_model_unavailable");
+  assert.equal(providerErrorCode({ name: "AI_NoObjectGeneratedError", text: "private output", finishReason: "length" }), "output_limit_reached");
+  assert.equal(providerErrorCode({ name: "AI_NoObjectGeneratedError", text: "private output", finishReason: "stop" }), "invalid_model_output");
 });

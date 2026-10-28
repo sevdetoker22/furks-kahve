@@ -56,10 +56,11 @@ export function validateDraft(value: unknown, products: Product[]): Recommendati
   for (const item of value.recommendations) {
     if (!isRecord(item) || typeof item.productId !== "string" || !isText(item.reason, 240)) return null;
     const product = available.get(item.productId);
-    if (!product || ids.has(item.productId) || !Array.isArray(item.matchedNotes)) return null;
+    if (!product || !Array.isArray(item.matchedNotes)) return null;
     const notes = product.tasting_notes.split(/[,;·]/).map((note) => note.trim()).filter(Boolean);
     if (item.matchedNotes.length < 1 || item.matchedNotes.length > 3) return null;
     if (!item.matchedNotes.every((note) => typeof note === "string" && notes.includes(note))) return null;
+    if (ids.has(item.productId)) continue;
     ids.add(item.productId);
     recommendations.push({
       productId: item.productId,

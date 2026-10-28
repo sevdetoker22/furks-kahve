@@ -14,7 +14,7 @@ Kimlik, kredi veya sağlayıcı bağlantısı eksikse arayüz açıklayıcı hat
 
 ## Yanıt sınırları
 
-Model, mevcut tercihlere göre en fazla üç kahve önerir. Yalnızca stoktaki ürün kimliklerini seçebilir. Yapılandırılmış yanıt sunucuda tekrar doğrulanır: bilinmeyen kimlikler, yinelenen ürünler, tükenen kahveler ve ürüne ait olmayan tadım notları reddedilir. Ad, fiyat, köken, kavrum ve bağlantı modelden alınmaz; katalogdan oluşturulur. Serbest açıklamalar yapay zekâ üretimidir ve anlam doğruluğu için canlı senaryo testi gerekir.
+Model, mevcut tercihlere göre en fazla üç kahve önerir. Yalnızca stoktaki ürün kimliklerini seçebilir; her ürünün şema dalı yalnızca o ürünün gerçek tadım notlarına izin verir. Yapılandırılmış yanıt sunucuda tekrar doğrulanır: bilinmeyen kimlikler, tükenen kahveler ve ürüne ait olmayan tadım notları reddedilir; yinelenen öneriler tek kayda indirilir. Ad, fiyat, köken, kavrum ve bağlantı modelden alınmaz; katalogdan oluşturulur. Serbest açıklamalar yapay zekâ üretimidir ve anlam doğruluğu için canlı senaryo testi gerekir.
 
 Eşleşme yoksa boş öneri ve açıklama dönebilir. Tabloda olmayan asidite, hasat, çiftlik veya demleme uygunluğu kesin bilgi olarak verilmemesi istenir. Tadım notları eklenmiş aroma veya alerjen beyanı sayılmaz.
 
@@ -22,7 +22,7 @@ Sohbet uygulama veritabanına veya tarayıcı depolamasına kaydedilmez. Geçmi�
 
 ## Kaynak ve maliyet sınırları
 
-İstekler aynı origin kontrolü, 16 KB gövde sınırı, mesaj başına 600 karakter, sunucu örneği başına ziyaretçi için dakikada altı istek, 22 saniye toplam işlem süresi, en fazla 900 çıktı tokeni ve sıfır otomatik yeniden deneme ile sınırlandırılır. Origin kontrolü ve bellekteki hız sınırı küresel bir harcama garantisi değildir; sunucu örnekleri çoğaldığında veya yeniden başlatıldığında sayaçlar paylaşılmaz. Gerçek kullanımda Vercel AI Gateway proje bütçesi ve platform düzeyinde hız sınırı ayrıca ayarlanmalıdır. Uygulama kredi satın almaz veya bütçeleri artırmaz.
+İstekler aynı origin kontrolü, 16 KB gövde sınırı, mesaj başına 600 karakter, sunucu örneği başına ziyaretçi için dakikada altı istek, 22 saniye toplam işlem süresi, en fazla 1.400 çıktı tokeni ve sıfır otomatik yeniden deneme ile sınırlandırılır. Origin kontrolü ve bellekteki hız sınırı küresel bir harcama garantisi değildir; sunucu örnekleri çoğaldığında veya yeniden başlatıldığında sayaçlar paylaşılmaz. Gerçek kullanımda Vercel AI Gateway proje bütçesi ve platform düzeyinde hız sınırı ayrıca ayarlanmalıdır. Uygulama kredi satın almaz veya bütçeleri artırmaz.
 
 ## Kontrol
 

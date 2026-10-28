@@ -6,6 +6,9 @@ export function providerErrorCode(error: unknown): string {
   let current = error;
   for (let depth = 0; depth < 4; depth++) {
     if (typeof current !== "object" || current === null) break;
+    if ("name" in current && current.name === "AI_NoObjectGeneratedError") {
+      return "finishReason" in current && current.finishReason === "length" ? "output_limit_reached" : "invalid_model_output";
+    }
     if ("message" in current && typeof current.message === "string") {
       const message = current.message;
       const code = knownCodes.find((candidate) => message.includes(candidate));

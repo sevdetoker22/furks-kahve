@@ -14,13 +14,18 @@ export function coffeeOutput(products: Product[]) {
         recommendations: {
           type: "array", maxItems: 3,
           items: {
-            type: "object", additionalProperties: false,
-            properties: {
-              productId: { type: "string", enum: products.filter((p) => p.in_stock).map((p) => String(p.id)) },
-              reason: { type: "string", minLength: 1, maxLength: 240 },
-              matchedNotes: { type: "array", minItems: 1, maxItems: 3, items: { type: "string" } },
-            },
-            required: ["productId", "reason", "matchedNotes"],
+            anyOf: products.filter((p) => p.in_stock).map((product) => ({
+              type: "object", additionalProperties: false,
+              properties: {
+                productId: { type: "string", enum: [String(product.id)] },
+                reason: { type: "string", minLength: 1, maxLength: 240 },
+                matchedNotes: {
+                  type: "array", minItems: 1, maxItems: 3,
+                  items: { type: "string", enum: product.tasting_notes.split(/[,;·]/).map((note) => note.trim()).filter(Boolean) },
+                },
+              },
+              required: ["productId", "reason", "matchedNotes"],
+            })),
           },
         },
       },
@@ -43,7 +48,7 @@ export async function generateCoffeeReply(products: Product[], messages: ChatMes
   const result = await generateText({
     model: process.env.AI_GATEWAY_MODEL || "openai/gpt-5.4-nano",
     output: coffeeOutput(products),
-    maxOutputTokens: 900,
+    maxOutputTokens: 1_400,
     reasoning: "none",
     maxRetries: 0,
     abortSignal: signal,
