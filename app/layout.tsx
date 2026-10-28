@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
+import { CoffeeAssistant } from "@/components/coffee-assistant/coffee-assistant";
 import "./globals.css";
 
 const siteUrl =
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <Header />
         {children}
+        <CoffeeAssistant />
       </body>
     </html>
   );

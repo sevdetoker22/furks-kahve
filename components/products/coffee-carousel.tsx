@@ -13,6 +13,20 @@ function scrollBehavior(): ScrollBehavior {
     : "smooth";
 }
 
+function revealDetailIfNeeded(panel: HTMLDivElement | null) {
+  if (!panel) return;
+  const rect = panel.getBoundingClientRect();
+  const navbarBottom =
+    document.querySelector("header")?.getBoundingClientRect().bottom ?? 80;
+  // Only reveal the beginning of an offscreen panel, below the sticky navbar.
+  if (rect.top > window.innerHeight - 140 || rect.top < navbarBottom) {
+    window.scrollTo({
+      top: window.scrollY + rect.top - navbarBottom - 24,
+      behavior: scrollBehavior(),
+    });
+  }
+}
+
 function CarouselArrow({ direction }: { direction: "left" | "right" }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -31,12 +45,22 @@ function CarouselArrow({ direction }: { direction: "left" | "right" }) {
   );
 }
 
-export function CoffeeCarousel({ products }: { products: Product[] }) {
+export function CoffeeCarousel({
+  products,
+  initialSelectedCoffeeId = "",
+}: {
+  products: Product[];
+  initialSelectedCoffeeId?: string;
+}) {
+  const initialProduct =
+    products.find(
+      (product) => String(product.id) === initialSelectedCoffeeId,
+    ) ?? null;
   const [selectedCoffeeId, setSelectedCoffeeId] = useState<
     Product["id"] | null
-  >(null);
+  >(initialProduct?.id ?? null);
   const [displayedProduct, setDisplayedProduct] = useState<Product | null>(
-    null,
+    initialProduct,
   );
   const [edges, setEdges] = useState({
     start: true,
@@ -46,6 +70,25 @@ export function CoffeeCarousel({ products }: { products: Product[] }) {
   const detailRef = useRef<HTMLDivElement>(null);
   const openingRef = useRef(false);
   const selectedButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const initialIndex = products.findIndex(
+      (product) => String(product.id) === initialSelectedCoffeeId,
+    );
+    if (initialIndex < 0) return;
+
+    const frame = requestAnimationFrame(() => {
+      const carousel = carouselRef.current;
+      const item = carousel?.children[initialIndex] as HTMLElement | undefined;
+      if (!carousel || !item) return;
+      selectedButtonRef.current = item.querySelector("button");
+      if (item.offsetLeft + item.offsetWidth > carousel.clientWidth) {
+        carousel.scrollTo({ left: item.offsetLeft, behavior: "instant" });
+      }
+      revealDetailIfNeeded(detailRef.current);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [initialSelectedCoffeeId, products]);
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -156,18 +199,7 @@ export function CoffeeCarousel({ products }: { products: Product[] }) {
     }
     if (!openingRef.current) return;
     openingRef.current = false;
-    const panel = detailRef.current;
-    if (!panel) return;
-    const rect = panel.getBoundingClientRect();
-    const navbarBottom =
-      document.querySelector("header")?.getBoundingClientRect().bottom ?? 80;
-    // Reveal only the start of an offscreen panel, without moving the catalogue.
-    if (rect.top > window.innerHeight - 140 || rect.top < navbarBottom) {
-      window.scrollTo({
-        top: window.scrollY + rect.top - navbarBottom - 24,
-        behavior: scrollBehavior(),
-      });
-    }
+    revealDetailIfNeeded(detailRef.current);
   }
 
   return (

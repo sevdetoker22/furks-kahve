@@ -32,9 +32,15 @@ function ProductsLoading() {
   );
 }
 
-async function ProductsCatalog() {
+async function ProductsCatalog({
+  searchParams,
+}: Pick<PageProps<"/kahvelerimiz">, "searchParams">) {
   await connection();
-  const { products, error } = await getProducts();
+  const [{ products, error }, query] = await Promise.all([
+    getProducts(),
+    searchParams,
+  ]);
+  const selectedId = typeof query.product === "string" ? query.product : "";
 
   if (error) {
     return (
@@ -55,10 +61,18 @@ async function ProductsCatalog() {
       </div>
     );
   }
-  return <CoffeeCarousel products={products} />;
+  return (
+    <CoffeeCarousel
+      key={selectedId}
+      products={products}
+      initialSelectedCoffeeId={selectedId}
+    />
+  );
 }
 
-export default function CoffeesPage() {
+export default function CoffeesPage({
+  searchParams,
+}: PageProps<"/kahvelerimiz">) {
   return (
     <main id="main-content" className={styles.page}>
       <div className={styles.container}>
@@ -70,7 +84,7 @@ export default function CoffeesPage() {
           <p>Farklı karakterler. Özgün aromalar. Sana en yakın olanı keşfet.</p>
         </div>
         <Suspense fallback={<ProductsLoading />}>
-          <ProductsCatalog />
+          <ProductsCatalog searchParams={searchParams} />
         </Suspense>
       </div>
     </main>
