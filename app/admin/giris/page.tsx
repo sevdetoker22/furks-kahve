@@ -11,7 +11,7 @@ export default async function AdminLoginPage() {
       <div className="mx-auto max-w-sm">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-roast">Furks Coffee / Yönetim</p>
         <h1 className="mt-4 font-display text-4xl font-bold tracking-[-0.045em]">Yönetici girişi</h1>
-        <p className="mt-4 text-sm leading-7 text-espresso/65">İşletmenize gelen toptan teklif taleplerini görüntülemek için giriş yapın.</p>
+        <p className="mt-4 text-sm leading-7 text-espresso/65">Kahve listenizi yönetmek ve gelen toptan teklif taleplerini görüntülemek için giriş yapın.</p>
         <LoginForm />
         <Link href="/" className="mt-7 inline-block text-sm text-espresso/65 underline underline-offset-4">Siteye dön</Link>
       </div>

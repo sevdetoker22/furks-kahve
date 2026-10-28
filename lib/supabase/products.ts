@@ -1,15 +1,10 @@
 import { supabase } from "@/lib/supabase/client";
+import { selectFeaturedProducts } from "@/lib/products/selection";
 
 export { formatPrice } from "@/lib/products/format";
 
 const productColumns =
   "id,name,origin,tasting_notes,roast_level,price,in_stock,created_at";
-
-export const featuredProductNames = [
-  "Moda Blend",
-  "Etiyopya Yirgacheffe",
-  "Espresso No. 12",
-] as const;
 
 export type Product = {
   id: string | number;
@@ -43,23 +38,6 @@ export async function getProducts(): Promise<ProductsResult> {
 }
 
 export async function getFeaturedProducts(): Promise<ProductsResult> {
-  const { data, error } = await supabase
-    .schema("public")
-    .from("products")
-    .select(productColumns)
-    .in("name", [...featuredProductNames]);
-
-  if (error) {
-    return { products: [], error: error.message };
-  }
-
-  const productsByName = new Map(
-    ((data ?? []) as Product[]).map((product) => [product.name, product]),
-  );
-  const products = featuredProductNames.flatMap((name) => {
-    const product = productsByName.get(name);
-    return product ? [product] : [];
-  });
-
-  return { products, error: null };
+  const { products, error } = await getProducts();
+  return { products: error ? [] : selectFeaturedProducts(products), error };
 }

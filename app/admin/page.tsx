@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdminNavigation } from "@/components/admin/admin-navigation";
 import { requireAdmin } from "@/lib/admin/session";
 import { getAdminRequests, requestsPerPage } from "@/lib/admin/requests";
 import { logoutAdmin, refreshAdminRequests } from "./actions";
@@ -43,6 +44,8 @@ export default async function AdminPage({ searchParams }: {
             <form action={logoutAdmin}><button className={buttonClass}>Çıkış yap</button></form>
           </div>
         </div>
+
+        <AdminNavigation active="requests" />
 
         {failed ? (
           <div role="alert" className="my-8 border-l-2 border-roast pl-4 text-sm leading-7 text-roast-dark">

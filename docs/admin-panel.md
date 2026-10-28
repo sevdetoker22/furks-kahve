@@ -1,11 +1,20 @@
-# Toptan talep yönetimi
+# Kahve ve toptan talep yönetimi
 
 ## Kullanım
 
 - `/admin` yönetim ekranıdır; oturum yoksa `/admin/giris` açılır.
 - Giriş ekranında kullanıcı adı **Deniz Yalın** olarak yazılır.
-- Panel yalnızca teklif taleplerini gösterir. Ödeme, sipariş onayı, kayıt silme,
-  ürün yönetimi veya kullanıcı kaydı özelliği içermez.
+- “Toptan talepler” gelen teklif taleplerini gösterir; bu kayıtlar salt okunurdur.
+- “Kahveler” (`/admin/kahveler`) üzerinden kahve eklenir, düzenlenir ve kaldırılır.
+  Kahve adı, köken, tadım notları, kavurma derecesi, 250 g fiyatı ve stok durumu
+  değiştirilebilir. Supabase panelini açmak veya siteyi tekrar deploy etmek gerekmez.
+- Kahve kaldırma ayrıca bir onay kutusu gerektirir ve kalıcıdır. Geçici stok yokluğu
+  için kahveyi kaldırmak yerine “Stokta var” işareti kaldırılır.
+- Yeni kahvelerde varsayılan marka simgesi gösterilir. Mevcut görseller ürün ID'sine
+  bağlı olduğu için isim değişince korunur. Görsel yükleme bu sürümde bulunmaz.
+- Ana sayfanın mevcut üç seçimi sabit ID'leriyle korunur; biri kaldırılırsa
+  sıradaki kahve onun yerini alır. İsim değişikliği ana sayfayı bozmaz.
+- Ödeme, sipariş onayı, toptan talep silme veya kullanıcı kaydı özelliği içermez.
 - En yeni kayıtlar önce listelenir; her sayfada 20 talep gösterilir.
 - “Listeyi yenile” yeni kayıtları getirir. “Çıkış yap” bu cihazın oturumunu kapatır.
 
@@ -48,6 +57,23 @@ gönderimini, normal kullanıcı ve `user_metadata` ile yetki yükseltme engelin
 yönetici okumasını ve UPDATE/DELETE izinlerinin kapalı olduğunu denetler.
 Test verileri transaction sonunda geri alınır.
 
+Kahve yönetimi için `supabase/migrations/20261028060514_product_admin_management.sql`
+kullanıcı onayıyla ortak/canlı Supabase veritabanına uygulanmıştır. Yeni bir
+ortam kurulurken bu migration ayrıca uygulanmalıdır. Uygulanmadan kahveler
+okunabilir, ancak ekleme/düzenleme/kaldırma işlemleri izin hatasıyla durur.
+
+Migration ürünlerin public SELECT politikasını korur; sadece doğrulanmış,
+anonim olmayan ve `app_metadata.role = admin` taşıyan kullanıcıya INSERT,
+UPDATE ve DELETE izni verir. Kimlik ve oluşturulma tarihi düzenlenemez.
+Anonim yazma ile TRUNCATE gibi RLS dışı yetkiler kapalıdır. Üç restrictive
+yazma politikası ileride eklenecek permissive politikaların korumayı açmasını önler.
+
+`supabase/tests/product_admin_access.sql` izinlerin allow/deny kontrollerini yapar.
+`node --test tests/product-form.test.mjs` (Node 24+) fiyat/alan doğrulamasını,
+int8 ID sınırlarını ve isim değişince ana sayfa seçiminin korunmasını denetler.
+Ürün kaydından sonra katalog, ana sayfa, yönetim listesi ve toptan formu yeniden
+doğrulanır. Açık bir ziyaretçi sekmesi yeni bilgiyi sayfa yenilendiğinde görür.
+
 ## Oturum ve erişim
 
 - İstek başına yeni `@supabase/ssr` istemcisi kullanılır; oturumlar paylaşılmaz.
@@ -56,7 +82,7 @@ Test verileri transaction sonunda geri alınır.
   `getUser()` ile kullanıcıyı ayrıca doğrular.
 - Şahsi bilgiler önbelleğe alınmaz. Admin cevapları `private, no-store` taşır.
 - Service-role anahtarı kullanılmaz. Veritabanı sorguları kullanıcının JWT'si
-  ve RLS üzerinden çalışır; yönetici kontrolü SELECT işleminden önce yapılır.
+  ve RLS üzerinden çalışır; yönetici kontrolü her okuma ve yazmadan önce yapılır.
 - Admin sayfaları arama motorları için noindex/nofollow olarak işaretlenir.
 - Genel kayıt olma ekranı yoktur; yeni hesaplara admin rolü otomatik verilmez.
 

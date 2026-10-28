@@ -8,7 +8,7 @@ import { getProducts } from "@/lib/supabase/products";
 export const metadata: Metadata = {
   title: "Kahvelerimiz | Furks Kahve",
   description:
-    "8 farklı karakter, 8 farklı aroma. Furks Kahve'nin taze kavrulan çekirdeklerini keşfedin, size en yakın kahveyi bulun.",
+    "Farklı karakterler, özgün aromalar. Furks Kahve'nin taze kavrulan çekirdeklerini keşfedin, size en yakın kahveyi bulun.",
 };
 
 function ProductsLoading() {
@@ -67,7 +67,7 @@ export default function CoffeesPage() {
           <h1>
             Her Fincanın <em>Bir Hikâyesi Var.</em>
           </h1>
-          <p>8 farklı karakter. 8 farklı aroma. Sana en yakın olanı keşfet.</p>
+          <p>Farklı karakterler. Özgün aromalar. Sana en yakın olanı keşfet.</p>
         </div>
         <Suspense fallback={<ProductsLoading />}>
           <ProductsCatalog />
