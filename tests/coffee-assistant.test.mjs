@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { parseMessages, resolveReply, validateDraft } from "../lib/coffee-assistant/contracts.ts";
 import { createBurstLimiter } from "../lib/coffee-assistant/rate-limit.ts";
+import { providerErrorCode } from "../lib/coffee-assistant/provider-error.ts";
 
 const products = [
   { id: 2, name: "Etiyopya", origin: "Etiyopya", tasting_notes: "Yasemin, bergamot, şeftali", roast_level: "Açık", price: 540, in_stock: true, created_at: "" },
@@ -54,4 +55,11 @@ test("burst limiting expires and isolates visitors", () => {
   assert.equal(allow("one", 1_001), 60);
   assert.equal(allow("two", 1_001), 0);
   assert.equal(allow("one", 61_000), 0);
+});
+
+test("provider diagnostics retain known codes without leaking raw request text", () => {
+  assert.equal(providerErrorCode(new Error("secret token and user text")), "provider_error");
+  assert.equal(providerErrorCode({ cause: { responseBody: JSON.stringify({ error: { code: "customer_verification_required", message: "private request" } }) } }), "customer_verification_required");
+  assert.equal(providerErrorCode({ responseBody: "<html>private request</html>" }), "provider_error");
+  assert.equal(providerErrorCode(null), "provider_error");
 });

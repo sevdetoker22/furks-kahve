@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { MAX_BODY_BYTES, parseMessages, resolveReply } from "@/lib/coffee-assistant/contracts";
 import { generateCoffeeReply } from "@/lib/coffee-assistant/generate";
 import { createBurstLimiter } from "@/lib/coffee-assistant/rate-limit";
+import { providerErrorCode } from "@/lib/coffee-assistant/provider-error";
 import type { Product } from "@/lib/supabase/products";
 
 export const runtime = "nodejs";
@@ -73,7 +74,7 @@ export async function POST(request: Request) {
   } catch (error) {
     const status = typeof error === "object" && error !== null && "statusCode" in error ? error.statusCode : undefined;
     // Provider responses can contain request text or credentials. Log codes only.
-    console.error("coffee_assistant_unavailable", { status: typeof status === "number" ? status : "generation_failed", timeout: signal.aborted });
+    console.error("coffee_assistant_unavailable", { status: typeof status === "number" ? status : "generation_failed", category: providerErrorCode(error), timeout: signal.aborted });
     return failure(status === 401 || status === 403
       ? "Kahve asistanı şu anda kullanıma hazır değil. Kahvelerimizi seçkiden keşfedebilirsin."
       : signal.aborted
