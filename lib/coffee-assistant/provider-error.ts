@@ -10,6 +10,7 @@ export function providerErrorCode(error: unknown): string {
       const message = current.message;
       const code = knownCodes.find((candidate) => message.includes(candidate));
       if (code) return code;
+      if (/free[ -]tier|free ai gateway credits?/i.test(message)) return "free_tier_model_unavailable";
     }
     if ("responseBody" in current && typeof current.responseBody === "string") {
       try {

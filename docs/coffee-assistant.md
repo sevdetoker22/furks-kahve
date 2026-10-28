@@ -4,7 +4,7 @@ Sağ alttaki **Kahveni bul** düğmesi, halka açık sayfalarda Türkçe bir soh
 
 ## Yapay zekâ bağlantısı
 
-AI SDK 7 üzerinden Vercel AI Gateway kullanılır. `AI_GATEWAY_MODEL` sunucu ortam değişkeniyle model değiştirilebilir. Varsayılan model geliştirme sırasında Gateway model kataloğundan doğrulanmıştır; güncel modeller `https://ai-gateway.vercel.sh/v1/models` üzerinden kontrol edilir.
+AI SDK 7 üzerinden Vercel AI Gateway kullanılır. `AI_GATEWAY_MODEL` sunucu ortam değişkeniyle model değiştirilebilir. Varsayılan `openai/gpt-5.4-nano` modelinin yapılandırılmış çıktı desteği ve ücretsiz Gateway kredilerine uygunluğu 28 Ekim 2026'da doğrulanmıştır. Güncel modeller `https://ai-gateway.vercel.sh/v1/models`, ücretsiz kredi uygunluğu ise Vercel model dizinindeki **Free AI Gateway Credit** alanından kontrol edilir. API model listesinde bulunmak, ücretsiz krediyle kullanılabileceği anlamına gelmez.
 
 - **Vercel:** SDK her istekte Vercel'in istek bağlamındaki dönen OIDC kimliğini çözer; yalnızca `process.env.VERCEL_OIDC_TOKEN` kontrol edilmez. Ayrı bir sağlayıcı anahtarı kaynak koduna eklenmez. Takımın AI Gateway erişimi ve kullanılabilir kredisi bulunmalıdır. Gateway hesap doğrulaması veya ödeme yöntemi isterse hesap sahibi Vercel panelinden tamamlar; uygulama bunu atlayamaz.
 - **Yerel:** Bağlı proje için `vercel env pull` ile kısa ömürlü OIDC kimliği alınabilir. Alternatif olarak Gateway panelinden oluşturulan anahtar yalnızca Git dışında tutulan `.env.local` dosyasında `AI_GATEWAY_API_KEY` olarak saklanır. Anahtar sohbet mesajıyla paylaşılmaz ve `NEXT_PUBLIC_` öneki almaz.

@@ -62,4 +62,5 @@ test("provider diagnostics retain known codes without leaking raw request text",
   assert.equal(providerErrorCode({ cause: { responseBody: JSON.stringify({ error: { code: "customer_verification_required", message: "private request" } }) } }), "customer_verification_required");
   assert.equal(providerErrorCode({ responseBody: "<html>private request</html>" }), "provider_error");
   assert.equal(providerErrorCode(null), "provider_error");
+  assert.equal(providerErrorCode(new Error("This model is not available on the free tier")), "free_tier_model_unavailable");
 });

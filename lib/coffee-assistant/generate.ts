@@ -41,7 +41,7 @@ export async function generateCoffeeReply(products: Product[], messages: ChatMes
     id: String(id), name, origin, tasting_notes, roast_level, price, in_stock,
   }));
   const result = await generateText({
-    model: process.env.AI_GATEWAY_MODEL || "openai/gpt-6-luna",
+    model: process.env.AI_GATEWAY_MODEL || "openai/gpt-5.4-nano",
     output: coffeeOutput(products),
     maxOutputTokens: 900,
     reasoning: "none",
