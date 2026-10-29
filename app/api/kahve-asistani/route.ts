@@ -73,9 +73,10 @@ export async function POST(request: Request) {
     return Response.json(resolveReply(draft, products), { headers: privateHeaders });
   } catch (error) {
     const status = typeof error === "object" && error !== null && "statusCode" in error ? error.statusCode : undefined;
+    const category = providerErrorCode(error);
     // Provider responses can contain request text or credentials. Log codes only.
-    console.error("coffee_assistant_unavailable", { status: typeof status === "number" ? status : "generation_failed", category: providerErrorCode(error), timeout: signal.aborted });
-    return failure(status === 401 || status === 403
+    console.error("coffee_assistant_unavailable", JSON.stringify({ status: typeof status === "number" ? status : "generation_failed", category, timeout: signal.aborted }));
+    return failure(category === "authentication_error" || status === 401 || status === 403
       ? "Kahve asistanı şu anda kullanıma hazır değil. Kahvelerimizi seçkiden keşfedebilirsin."
       : signal.aborted
       ? "Yanıt biraz uzun sürdü. Lütfen tekrar dene."

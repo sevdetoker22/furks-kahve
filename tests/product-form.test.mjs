@@ -35,9 +35,10 @@ test("only positive int8 identifiers are accepted", () => {
   for (const id of ["1", "9223372036854775807"]) assert.equal(isProductId(id), true);
 });
 
-test("renaming a featured coffee keeps its selection and removal fills the gap", () => {
-  const products = [{ id: 1, name: "Yeni isim" }, { id: 2 }, { id: 3 }, { id: 7 }];
-  assert.deepEqual(selectFeaturedProducts(products).map(({ id }) => id), [1, 2, 7]);
-  assert.deepEqual(selectFeaturedProducts(products.filter(({ id }) => id !== 2)).map(({ id }) => id), [1, 7, 3]);
+test("homepage follows catalog order instead of preferring particular product IDs", () => {
+  const products = [{ id: 7, name: "Yeni isim" }, { id: 3 }, { id: 2 }, { id: 1 }];
+  assert.deepEqual(selectFeaturedProducts(products).map(({ id }) => id), [7, 3, 2]);
+  assert.deepEqual(selectFeaturedProducts(products.filter(({ id }) => id !== 3)).map(({ id }) => id), [7, 2, 1]);
+  assert.deepEqual(selectFeaturedProducts(products.slice(0, 2)).map(({ id }) => id), [7, 3]);
   assert.deepEqual(selectFeaturedProducts([]), []);
 });

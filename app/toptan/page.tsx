@@ -6,28 +6,23 @@ import { WholesaleForm } from "./wholesale-form";
 export const metadata: Metadata = {
   title: "Toptan Kahve | Furks Kahve",
   description:
-    "İşletmenizin kahve ihtiyacını birlikte planlayalım. Aylık 5 kg’dan başlayan taze kavrum, düzenli tedarik ve size özel fiyatlandırma.",
+    "İşletmenizin kahve ihtiyacını birlikte planlayalım. Taze kavrum, düzenli tedarik ve size özel fiyatlandırma.",
 };
 
 const benefits = [
   {
-    number: "01",
     title: "Size özel fiyatlandırma",
-    description:
-      "Aylık 5 kg ve üzeri siparişlerde işletmenize uygun fiyatlandırma.",
+    description: "Kahve ihtiyacınıza uygun teklif.",
   },
   {
-    number: "02",
     title: "Taze kavrum",
-    description: "Düzenli kavrum ve planlı kahve tedariki.",
+    description: "Düzenli kavrum, planlı tedarik.",
   },
   {
-    number: "03",
     title: "Teslimat kolaylığı",
-    description: "Kadıköy içindeki işletmelere ücretsiz teslimat.",
+    description: "Kadıköy’deki işletmelere ücretsiz teslimat.",
   },
   {
-    number: "04",
     title: "Barista desteği",
     description: "Öğütüm, reçete ve makine ayarlarında destek.",
   },
@@ -50,7 +45,7 @@ export default function WholesalePage({ searchParams }: PageProps<"/toptan">) {
     <main id="main-content" className="bg-[#fffaf2]">
       <section
         aria-labelledby="wholesale-heading"
-        className="mx-auto grid max-w-7xl gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[0.85fr_1.35fr] lg:gap-14 lg:px-10 lg:py-12 xl:gap-20"
+        className="mx-auto grid max-w-7xl items-start gap-8 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[0.85fr_1.35fr] lg:gap-14 lg:px-10 lg:py-12 xl:gap-20"
       >
         <div className="lg:pt-2">
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-leaf">
@@ -65,14 +60,33 @@ export default function WholesalePage({ searchParams }: PageProps<"/toptan">) {
             <span className="font-normal italic">iyi iş ortaklığı.</span>
           </h1>
           <p className="mt-4 max-w-sm text-sm leading-7 text-espresso/70 sm:text-base">
-            İşletmenizin kahve ihtiyacını birlikte planlayalım. Taze kavrum,
-            düzenli tedarik ve size özel fiyatlandırma.
+            İşletmenizin ihtiyacına uygun kahveyi ve tedarik planını birlikte
+            belirleyelim.
           </p>
-          <p className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-espresso/15 pt-4 text-xs text-espresso/65 sm:mt-7 sm:text-sm lg:max-w-sm">
-            <span className="font-semibold text-espresso">5 kg / ay</span>
-            <span aria-hidden="true">—</span>
-            Toptan sipariş başlangıcı
-          </p>
+
+          <section
+            aria-labelledby="wholesale-benefits-heading"
+            className="mt-7 border-t border-espresso/15 pt-5 sm:mt-8 sm:pt-6 lg:max-w-sm"
+          >
+            <h2
+              id="wholesale-benefits-heading"
+              className="text-[11px] font-semibold uppercase tracking-[0.14em] text-leaf"
+            >
+              İş ortaklığımız
+            </h2>
+            <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-1 lg:gap-y-4">
+              {benefits.map((benefit) => (
+                <li key={benefit.title}>
+                  <h3 className="text-[13px] font-semibold leading-5 text-espresso">
+                    {benefit.title}
+                  </h3>
+                  <p className="mt-1 text-[13px] leading-5 text-espresso/65">
+                    {benefit.description}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
 
         <div id="talep-formu" className="min-w-0 scroll-mt-28 border-t border-espresso/15 pt-6 lg:border-t-0 lg:border-l lg:pl-10 lg:pt-0 xl:pl-14">
@@ -92,37 +106,6 @@ export default function WholesalePage({ searchParams }: PageProps<"/toptan">) {
         </div>
       </section>
 
-      <section
-        aria-labelledby="wholesale-benefits-heading"
-        className="mx-auto max-w-7xl px-5 pb-10 sm:px-8 sm:pb-12 lg:px-10"
-      >
-        <div className="border-t border-espresso/15 pt-7 sm:pt-8">
-          <h2
-            id="wholesale-benefits-heading"
-            className="font-display text-2xl font-bold tracking-[-0.035em] text-espresso"
-          >
-            İşletmeniz için düşündük.
-          </h2>
-          <ol className="mt-5 grid divide-y divide-espresso/15 lg:grid-cols-4 lg:divide-x lg:divide-y-0">
-            {benefits.map((benefit) => (
-              <li
-                key={benefit.number}
-                className="py-4 first:pt-0 last:pb-0 lg:px-6 lg:py-0 lg:first:pl-0 lg:last:pr-0"
-              >
-                <span className="text-xs font-semibold tracking-[0.1em] text-roast">
-                  {benefit.number}
-                </span>
-                <h3 className="mt-2 text-sm font-bold text-espresso">
-                  {benefit.title}
-                </h3>
-                <p className="mt-2 max-w-sm text-sm leading-6 text-espresso/65">
-                  {benefit.description}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
     </main>
   );
 }

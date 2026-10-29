@@ -22,7 +22,7 @@ const buttonClass = "inline-flex min-h-11 items-center justify-center rounded-sm
 export default async function AdminPage({ searchParams }: {
   searchParams: Promise<{ page?: string | string[] }>;
 }) {
-  const { name } = await requireAdmin();
+  await requireAdmin();
   const params = await searchParams;
   const parsedPage = typeof params.page === "string" && /^\d{1,5}$/.test(params.page)
     ? Number(params.page) : 1;
@@ -37,7 +37,7 @@ export default async function AdminPage({ searchParams }: {
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-roast">Furks Coffee / Yönetim</p>
             <h1 className="mt-3 font-display text-4xl font-bold tracking-[-0.045em]">Toptan talepler</h1>
-            <p className="mt-3 text-sm leading-6 text-espresso/65">Merhaba {name}. İşletmenize gelen teklif talepleri burada.</p>
+            <p className="mt-3 text-sm leading-6 text-espresso/65">İşletmenize gelen teklif talepleri burada.</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <form action={refreshAdminRequests}><button className={buttonClass}>Listeyi yenile</button></form>

@@ -37,7 +37,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-cream/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 text-xs text-cream/45 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 pb-24 pt-6 text-xs text-cream/45 sm:pb-6 sm:pl-8 sm:pr-60 md:flex-row md:items-center md:justify-between lg:pl-10 lg:pr-64">
           <p>© {new Date().getFullYear()} Furks Kahve</p>
           <div className="flex flex-wrap gap-5">
             <p>Taze kavrulur, hızlı tükenir.</p>

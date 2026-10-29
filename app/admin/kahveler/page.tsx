@@ -17,7 +17,7 @@ const notices: Record<string, string> = {
 export default async function AdminProductsPage({ searchParams }: {
   searchParams: Promise<{ page?: string | string[]; notice?: string | string[] }>;
 }) {
-  const { name } = await requireAdmin();
+  await requireAdmin();
   const params = await searchParams;
   const page = typeof params.page === "string" && /^\d{1,5}$/.test(params.page) ? Math.max(1, Number(params.page)) : 1;
   const { products, total, failed } = await getAdminProducts(page);
@@ -31,7 +31,7 @@ export default async function AdminProductsPage({ searchParams }: {
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-roast">Furks Coffee / Yönetim</p>
             <h1 className="mt-3 font-display text-4xl font-bold tracking-[-0.045em]">Kahveler</h1>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-espresso/65">Merhaba {name}. Kahve seçkinizi, fiyatları ve stok durumunu buradan güncelleyebilirsiniz.</p>
+            <p className="mt-3 max-w-xl text-sm leading-7 text-espresso/65">Kahve seçkinizi, fiyatları ve stok durumunu buradan güncelleyebilirsiniz.</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <form action={refreshAdminProducts}><button className={buttonClass}>Listeyi yenile</button></form>

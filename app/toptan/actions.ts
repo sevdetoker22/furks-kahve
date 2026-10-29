@@ -75,7 +75,7 @@ export async function submitWholesaleRequest(
   if (!kvkkAccepted) {
     return {
       status: "error",
-      message: "Talebi göndermek için KVKK onayını vermelisiniz.",
+      message: "Lütfen KVKK Aydınlatma Metni’ni okuyup ilgili kutuyu işaretleyin.",
     };
   }
 

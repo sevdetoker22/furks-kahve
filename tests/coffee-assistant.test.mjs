@@ -66,3 +66,11 @@ test("provider diagnostics retain known codes without leaking raw request text",
   assert.equal(providerErrorCode({ name: "AI_NoObjectGeneratedError", text: "private output", finishReason: "length" }), "output_limit_reached");
   assert.equal(providerErrorCode({ name: "AI_NoObjectGeneratedError", text: "private output", finishReason: "stop" }), "invalid_model_output");
 });
+
+test("SDK-wrapped Gateway authentication failures are recognized without a status code", () => {
+  const error = Object.assign(new Error("private credential setup details"), { name: "GatewayAuthenticationError" });
+  assert.equal(providerErrorCode(error), "authentication_error");
+  assert.equal(providerErrorCode({ cause: error }), "authentication_error");
+  assert.equal(providerErrorCode(Object.assign(new Error("Unauthenticated. Configure credentials."), { name: "GatewayError" })), "authentication_error");
+  assert.equal(providerErrorCode(Object.assign(new Error("Gateway unavailable"), { name: "GatewayError" })), "provider_error");
+});

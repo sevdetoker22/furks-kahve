@@ -6,45 +6,26 @@ const reasons = [
   {
     title: "Sipariş üzerine kavrum",
     description:
-      "Kahveyi sipariş geldikten sonra kavuruyoruz; rafta bekletmiyoruz.",
-    image: "/images/why-furks/roasted-beans.webp",
+      "Sipariş geldikten sonra kavuruyoruz; rafta bekletmiyoruz.",
   },
   {
-    title: "Şeffaf kaynak",
-    description: "Kökeni belli, özenle seçilmiş çekirdeklerle çalışıyoruz.",
-    image: "/images/why-furks/coffee-branch.webp",
-  },
-  {
-    title: "İzlenebilir kahve",
+    title: "Şeffaf ve izlenebilir kaynak",
     description:
-      "Her kahvenin hangi çiftlikten ve hangi hasattan geldiğini biliyoruz.",
-    image: "/images/why-furks/coffee-cup.webp",
+      "Özenle seçtiğimiz her çekirdeğin kökenini ve hasadını biliyoruz.",
   },
   {
     title: "Yanınızda destek",
     description:
-      "Toptan müşterilerimize makine ayarı, reçete ve barista eğitimi desteği sağlıyoruz.",
-    image: "/images/why-furks/coffee-tamper.webp",
+      "Makine ayarı, reçete ve barista eğitimiyle işletmenizin yanındayız.",
   },
 ];
 
 function ReasonRow({ reason }: { reason: (typeof reasons)[number] }) {
   return (
     <li className={styles.reason}>
-      <div className={styles.artwork} aria-hidden="true">
-        <Image
-          src={reason.image}
-          alt=""
-          fill
-          sizes="(max-width: 639px) 96px, (max-width: 1023px) 144px, 192px"
-          className={styles.reasonImage}
-        />
-      </div>
-      <div className={styles.reasonCopy}>
-        <span className={styles.accent} aria-hidden="true" />
-        <h3 className={styles.reasonTitle}>{reason.title}</h3>
-        <p className={styles.reasonDescription}>{reason.description}</p>
-      </div>
+      <span className={styles.accent} aria-hidden="true" />
+      <h3 className={styles.reasonTitle}>{reason.title}</h3>
+      <p className={styles.reasonDescription}>{reason.description}</p>
     </li>
   );
 }
@@ -58,17 +39,14 @@ export function WhyFurks() {
     >
       <div className={styles.layout}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow}>
-            <span aria-hidden="true" /> Neden Furks?
-          </p>
           <h2 id="why-furks-heading" className={styles.heading}>
-            <span>Tazeliği</span>{" "}
-            <span>şansa</span>{" "}
-            <span>bırakmıyoruz.</span>
+            Neden Furks?
           </h2>
+          <p className={styles.tagline}>Tazeliği şansa bırakmıyoruz.</p>
           <p className={styles.description}>
-            İyi kahvenin yalnızca çekirdekle değil; doğru kavurma, şeffaf kaynak
-            ve sürekli destekle mümkün olduğuna inanıyoruz.
+            2019’da Moda’da beş kiloluk bir kavurma makinesiyle başladık.
+            Bugün altı kişilik ekibimizle kırktan fazla işletmeye ulaşıyoruz.
+            İlk günkü kuralımız aynı: sipariş gelmeden kavurmuyoruz.
           </p>
           <Link href="/hikayemiz" className={styles.storyLink}>
             Hikâyemizi keşfet
@@ -88,14 +66,14 @@ export function WhyFurks() {
               />
             </svg>
           </Link>
-          <div className={styles.botanical} aria-hidden="true">
+          <div className={styles.decoration} aria-hidden="true">
             <Image
-              src="/images/why-furks/coffee-botanical.webp"
+              src="/images/why-furks/coffee-sack.webp"
               alt=""
-              width={720}
-              height={720}
-              sizes="(max-width: 1023px) 1px, 600px"
-              className={styles.botanicalImage}
+              width={1942}
+              height={809}
+              sizes="(max-width: 1023px) 1px, (max-width: 1476px) 39vw, 576px"
+              className={styles.sackImage}
             />
           </div>
         </div>

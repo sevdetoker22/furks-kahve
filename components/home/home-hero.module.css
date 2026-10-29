@@ -135,6 +135,7 @@
   font-size: clamp(18px, 1.4vw, 23px);
   font-style: italic;
   line-height: 1.5;
+  white-space: nowrap;
 }
 
 .actions {

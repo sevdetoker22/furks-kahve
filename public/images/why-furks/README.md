@@ -1,5 +1,23 @@
 # Neden Furks görselleri
 
+## Güncel bölüm
+
+`coffee-sack.webp`, 29 Ekim 2026 tarihli sade metin düzeninin sol alt
+dekorasyonudur. Yerleşik Imagegen aracı kullanılmıştır; arka plan gerçek alfa
+şeffaflığı içerir. 1942 × 809 piksel kaynak PNG, içeriği veya kadrajı
+değiştirilmeden Sharp ile WebP'ye çevrilmiştir (quality 90, effort 6).
+
+Kullanıcının `EC72ED4C-723A-4ADA-A572-D5E810C30979.png` görseli yalnızca çuvalın,
+çekirdeklerin, ışığın ve kompozisyonun referansıdır. Bölümdeki bütün yazılar,
+buton, sütunlar ve çizgiler gerçek HTML/CSS'tir. Sağdaki maddelerde görsel yoktur.
+Dekorasyon erişilebilirlik ağacında gizlenir ve küçük ekranlarda gösterilmez.
+
+### Son üretim istemi (yerleşik Imagegen)
+
+> Use case: photorealistic-natural. Asset type: one transparent decorative website image for Furks Kahve. Input image: the attached website screenshot is ONLY a visual reference for the coffee sack and scattered roasted beans in its lower left; it is not an edit target. Generate a standalone realistic still life of a small natural tan burlap coffee sack lying on its side on the far left, its open mouth tipped toward the viewer/right, with rich medium-dark roasted coffee beans spilling out into a low irregular mound and scattering toward the right. Match the warm soft natural light, tactile woven jute and glossy warm brown beans of the lower-left reference. Wide low landscape composition, approximately 2.4:1, sack concentrated in the left third, beans extending across the lower foreground, entire still life visible with a little transparent padding. Genuinely transparent background, alpha channel, subtle soft contact shadows that fade smoothly into transparency. No cream backdrop, no table plane, no gradient rectangular background, no border. No cups, flowers, leaves, equipment, numbers, lettering, logos, web page, UI, headings or buttons. This asset will sit decoratively at the bottom left of a warm cream editorial website section; all text and layout will be real HTML/CSS. Keep the top and right negative space transparent.
+
+## Önceki düzenin varlıkları
+
 Bu bölüm için yerleşik Imagegen aracıyla ayrı ayrı üretilmiş görsel varlıkları.
 Kullanıcının onayladığı `E4E32D1E-863E-4609-AD80-ADB1F60E3D38.png`
 yalnızca stil ve kompozisyon referansı olarak kullanıldı. Referans ekran

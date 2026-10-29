@@ -16,7 +16,7 @@ export function LoginForm() {
         <label className="block text-sm font-semibold">
           Kullanıcı adı
           <input className={inputClass} name="username" autoComplete="username"
-            placeholder="Deniz Yalın" defaultValue={state.username} maxLength={100} required />
+            defaultValue={state.username} maxLength={100} required />
         </label>
         <label className="block text-sm font-semibold">
           Şifre

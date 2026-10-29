@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import type { Product } from "@/lib/supabase/products";
 import { submitWholesaleRequest, type WholesaleFormState } from "./actions";
+import { WholesalePrivacyNotice } from "./privacy-notice";
 
 const initialFormValues = {
   contact_name: "",
@@ -192,21 +193,10 @@ export function WholesaleForm({
           />
         </label>
 
-        <label className="flex cursor-pointer items-start gap-2.5 text-xs leading-5 text-espresso/70">
-          <input
-            type="checkbox"
-            name="kvkk_accepted"
-            required
-            checked={values.kvkk_accepted}
-            onChange={(event) => setValues({ ...values, kvkk_accepted: event.target.checked })}
-            className="mt-0.5 size-4 shrink-0 accent-roast focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roast"
-          />
-          <span>
-            KVKK kapsamında kişisel verilerimin toptan talebimin değerlendirilmesi
-            ve benimle iletişime geçilmesi amacıyla işlenmesini kabul ediyorum.
-            <span className="ml-1 text-roast" aria-hidden="true">*</span>
-          </span>
-        </label>
+        <WholesalePrivacyNotice
+          checked={values.kvkk_accepted}
+          onCheckedChange={(checked) => setValues({ ...values, kvkk_accepted: checked })}
+        />
       </fieldset>
 
       <div aria-live="polite" aria-atomic="true">

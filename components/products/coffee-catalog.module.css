@@ -32,31 +32,15 @@
 .intro h1 em {
   color: var(--forest);
 }
-.intro > p:last-child {
-  margin-top: 14px;
-  font-size: 14px;
-  line-height: 1.7;
-  color: #756b60;
-}
 .catalog {
   margin-top: 28px;
 }
 .catalogToolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
   padding-bottom: 12px;
-}
-.catalogToolbar > p {
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: #756b60;
-}
-.catalogToolbar > p > span {
-  padding-right: 8px;
-  font-weight: 700;
-  color: var(--forest);
 }
 .arrows {
   display: flex;
@@ -193,25 +177,6 @@
     opacity: 1;
     transform: none;
   }
-}
-.catalogHint {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  border-top: 1px solid #2b1d141a;
-  padding-top: 18px;
-  font-size: 11px;
-  line-height: 1.7;
-  color: #81786c;
-}
-.catalogHint > span:last-child {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.catalogHint svg {
-  width: 18px;
-  height: 18px;
 }
 .detailReveal {
   display: grid;
@@ -600,19 +565,11 @@
     max-width: 350px;
     font-size: 35px;
   }
-  .intro > p:last-child {
-    max-width: 290px;
-    margin-inline: auto;
-    font-size: 12px;
-  }
   .catalog {
     margin-top: 24px;
   }
   .catalogToolbar {
     padding-bottom: 2px;
-  }
-  .catalogToolbar > p {
-    font-size: 10px;
   }
   .arrows button {
     width: 36px;
@@ -638,15 +595,6 @@
   .preview {
     min-height: 58px;
     padding-top: 8px;
-  }
-  .catalogHint {
-    font-size: 10px;
-  }
-  .catalogHint > span:last-child {
-    gap: 5px;
-  }
-  .catalogHint svg {
-    width: 14px;
   }
   .detailCard {
     margin-top: 24px;

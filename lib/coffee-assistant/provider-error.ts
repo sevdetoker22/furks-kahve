@@ -6,6 +6,14 @@ export function providerErrorCode(error: unknown): string {
   let current = error;
   for (let depth = 0; depth < 4; depth++) {
     if (typeof current !== "object" || current === null) break;
+    // The AI SDK wraps Gateway auth failures differently in dev and production,
+    // removing statusCode and the original provider error in both cases.
+    if ("name" in current && (current.name === "GatewayAuthenticationError" || (
+      current.name === "GatewayError" && "message" in current &&
+      typeof current.message === "string" && current.message.startsWith("Unauthenticated.")
+    ))) {
+      return "authentication_error";
+    }
     if ("name" in current && current.name === "AI_NoObjectGeneratedError") {
       return "finishReason" in current && current.finishReason === "length" ? "output_limit_reached" : "invalid_model_output";
     }

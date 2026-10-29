@@ -41,9 +41,7 @@ export function HomeHero() {
 
           <div className={styles.statement}>
             <p className={styles.brandDescription}>
-              Moda’da küçük partiler halinde,
-              <br />
-              sipariş üzerine kavrulan kahve.
+              Taze kavrulur, hızlı tükenir.
             </p>
           </div>
 

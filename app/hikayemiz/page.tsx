@@ -35,20 +35,6 @@ const roastingSteps = [
   },
 ];
 
-function ArrowIcon() {
-  return (
-    <svg viewBox="0 0 20 20" className="size-5" fill="none" aria-hidden="true">
-      <path
-        d="M4 10h12M11 5l5 5-5 5"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 export default function StoryPage() {
   return (
     <main id="main-content">
@@ -187,8 +173,11 @@ export default function StoryPage() {
           <ol className="mt-14 grid gap-px overflow-hidden rounded-[2rem] border border-cream/15 bg-cream/15 md:grid-cols-2 xl:grid-cols-4">
             {roastingSteps.map((step) => (
               <li key={step.number} className="min-h-72 bg-espresso p-7 sm:p-9">
-                <span className="font-display text-xl italic text-roast-light">
-                  {step.number}
+                <span
+                  aria-hidden="true"
+                  className="font-display text-xl italic text-roast-light"
+                >
+                  &nbsp;
                 </span>
                 <h3 className="mt-12 font-display text-3xl font-bold">
                   {step.title}
@@ -197,25 +186,6 @@ export default function StoryPage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="bg-roast py-16 text-white sm:py-20">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/65">
-              Hikâyenin devamı fincanda
-            </p>
-            <h2 className="mt-3 max-w-2xl font-display text-4xl font-bold tracking-[-0.04em] sm:text-5xl">
-              Bu hafta kavrulan kahveleri keşfedin.
-            </h2>
-          </div>
-          <Link
-            href="/kahvelerimiz"
-            className="inline-flex min-h-14 shrink-0 items-center justify-center gap-3 rounded-full bg-espresso px-8 py-4 font-bold text-cream transition hover:-translate-y-0.5 hover:bg-leaf focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            Kahvelerimizi görün <ArrowIcon />
-          </Link>
         </div>
       </section>
     </main>

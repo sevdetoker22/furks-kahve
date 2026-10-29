@@ -88,12 +88,13 @@ export function CoffeeImage({
   const sizes = detail
     ? `(min-width: 1024px) ${Math.ceil(470 * scale)}px, ${Math.ceil(80 * scale)}vw`
     : `(min-width: 1024px) ${Math.ceil(280 * scale)}px, (min-width: 640px) ${Math.ceil(33 * scale)}vw, ${Math.ceil(64 * scale)}vw`;
+  const notes = product.tasting_notes?.trim();
 
   return (
     <span className="block aspect-square w-full overflow-hidden rounded-full bg-[#123a2d]">
       <ImageViewport
         image={image}
-        alt={`${product.name} — ${product.tasting_notes} notalarını temsil eden kahve sunumu`}
+        alt={notes ? `${product.name} — ${notes} notalarını temsil eden kahve sunumu` : `${product.name} kahve sunumu`}
         sizes={sizes}
         eager={eager}
       />

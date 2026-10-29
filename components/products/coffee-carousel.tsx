@@ -206,10 +206,6 @@ export function CoffeeCarousel({
     <>
       <section className={styles.catalog} aria-label="Kahve kataloğu">
         <div className={styles.catalogToolbar}>
-          <p>
-            <span>{String(products.length).padStart(2, "0")}</span> kahve ·
-            Senin seçimin
-          </p>
           <div className={styles.arrows}>
             <button
               type="button"
@@ -258,12 +254,6 @@ export function CoffeeCarousel({
             </li>
           ))}
         </ul>
-        <div className={styles.catalogHint}>
-          <span>Bir kahve seç, hikâyesini keşfet.</span>
-          <span>
-            Kaydırarak keşfet <CarouselArrow direction="right" />
-          </span>
-        </div>
       </section>
       <div
         id="coffee-detail"

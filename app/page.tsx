@@ -77,8 +77,8 @@ async function FeaturedCoffees() {
 
   return (
     <div className="mt-12 grid gap-6 md:grid-cols-3">
-      {products.map((product, index) => (
-        <ProductCard key={product.id} product={product} index={index} />
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );
@@ -104,10 +104,7 @@ export default function Home() {
       <section className="bg-[#fffaf2] py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-roast">Bu hafta kavrulanlar</p>
-              <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-[-0.045em] text-espresso sm:text-6xl">Her fincanda başka bir hikâye.</h2>
-            </div>
+            <h2 className="max-w-2xl font-display text-4xl font-bold tracking-[-0.045em] text-espresso sm:text-6xl">En popüler 3 kahvemiz</h2>
             <Link href="/kahvelerimiz" className="inline-flex items-center gap-2 text-sm font-bold text-espresso underline decoration-roast decoration-2 underline-offset-8">Tüm kahveler <ArrowIcon /></Link>
           </div>
 
@@ -119,28 +116,13 @@ export default function Home() {
 
       <WhyFurks />
 
-      <section className="overflow-hidden bg-leaf py-20 text-cream sm:py-28">
-        <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1fr_0.8fr] lg:items-center lg:px-10">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.22em] text-roast-light">Bizim hikâyemiz</p>
-            <h2 className="mt-4 max-w-3xl font-display text-4xl font-bold tracking-[-0.045em] sm:text-6xl">On beş metrekareden kırktan fazla işletmeye.</h2>
-            <p className="mt-7 max-w-2xl text-base leading-8 text-cream/75 sm:text-lg">2019&apos;da Moda&apos;da beş kiloluk bir kavurma makinesiyle başladık. Makinemiz büyüdü, ekibimiz altı kişiye ulaştı; ama kuralımız değişmedi: sipariş gelmeden kavurmuyoruz.</p>
-            <Link href="/hikayemiz" className="mt-8 inline-flex items-center gap-3 rounded-full border border-cream/35 px-6 py-3.5 text-sm font-bold transition hover:bg-cream hover:text-leaf">Hikâyemizi oku <ArrowIcon /></Link>
-          </div>
-          <div className="relative min-h-72">
-            <div className="absolute left-4 top-0 size-52 rounded-full border border-cream/20 sm:size-72" />
-            <div className="absolute bottom-0 right-0 size-52 rounded-full bg-roast sm:size-64" />
-            <div className="absolute left-1/2 top-1/2 grid size-48 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-cream/30 bg-leaf text-center shadow-2xl sm:size-60">
-              <div><strong className="font-display text-6xl italic sm:text-7xl">2019</strong><span className="mt-2 block text-xs font-bold uppercase tracking-[0.2em] text-cream/60">Moda, İstanbul</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#fffaf2] py-20 sm:py-28">
+      <section id="fincandan-duyduklarimiz" aria-labelledby="home-testimonials-heading" className="scroll-mt-20 bg-[#fffaf2] py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-          <div className="max-w-2xl"><p className="text-xs font-bold uppercase tracking-[0.22em] text-roast">Fincandan duyduklarımız</p><h2 className="mt-4 font-display text-4xl font-bold tracking-[-0.045em] text-espresso sm:text-6xl">İyi kahve konuşulur.</h2></div>
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          <div>
+            <h2 id="home-testimonials-heading" className="font-display text-[clamp(2.25rem,6vw,4.5rem)] font-bold leading-[1.08] tracking-[-0.06em] text-espresso lg:text-[clamp(4rem,5vw,4.5rem)]">Fincandan Duyduklarımız</h2>
+            <p className="mt-4 text-lg font-normal leading-relaxed text-espresso/65 sm:text-[clamp(1.375rem,1.8vw,1.5rem)]">İyi kahve konuşulur.</p>
+          </div>
+          <div className="mt-8 grid gap-5 sm:mt-10 lg:grid-cols-3">
             {testimonials.map((testimonial, index) => (
               <figure key={testimonial.name} className={`rounded-[2rem] p-7 sm:p-9 ${index === 1 ? "bg-roast text-white" : "bg-cream text-espresso"}`}>
                 <span className={`font-display text-6xl leading-none ${index === 1 ? "text-white/35" : "text-roast/40"}`} aria-hidden="true">“</span>

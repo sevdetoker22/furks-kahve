@@ -77,11 +77,9 @@ export default function CoffeesPage({
     <main id="main-content" className={styles.page}>
       <div className={styles.container}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow}>Furks Kahve · Kahve seçkimiz</p>
           <h1>
             Her Fincanın <em>Bir Hikâyesi Var.</em>
           </h1>
-          <p>Farklı karakterler. Özgün aromalar. Sana en yakın olanı keşfet.</p>
         </div>
         <Suspense fallback={<ProductsLoading />}>
           <ProductsCatalog searchParams={searchParams} />
