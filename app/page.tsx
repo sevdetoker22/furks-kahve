@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { HomeHero } from "@/components/home/home-hero";
 import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
@@ -88,42 +88,7 @@ export default function Home() {
   return (
     <>
       <main id="main-content">
-      <section className="relative isolate overflow-hidden bg-cream">
-        <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-[1600px] lg:h-[calc(100svh-5rem)] lg:min-h-[38rem] lg:max-h-[52rem] lg:grid-cols-[1.08fr_0.92fr]">
-          <div className="relative z-10 flex items-center px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-12 xl:pl-[max(2.5rem,calc((100vw-80rem)/2))]">
-            <div className="max-w-2xl">
-              <p className="mb-4 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-leaf sm:mb-5">
-                <span className="h-px w-8 bg-leaf" /> Moda&apos;da 2019&apos;dan beri
-              </p>
-              <h1 className="font-display text-[clamp(3rem,5.5vw,5.45rem)] font-bold leading-[0.9] tracking-[-0.06em] text-espresso">
-                Taze kavrulur,
-                <span className="block italic text-roast">hızlı tükenir.</span>
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-7 text-espresso/70 sm:mt-6 sm:text-lg sm:leading-8">
-                Moda&apos;daki kavurucumuzdan, siparişiniz için küçük partiler halinde kavrulan karakterli ve izlenebilir kahveler.
-              </p>
-              <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:gap-4">
-                <Link href="/kahvelerimiz" className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-roast px-8 py-4 text-base font-bold text-white shadow-[0_12px_30px_rgba(200,100,43,0.28)] transition hover:-translate-y-0.5 hover:bg-roast-dark hover:shadow-[0_16px_34px_rgba(200,100,43,0.34)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roast sm:min-h-16 sm:px-9">
-                  Kahvelerimizi gör <ArrowIcon />
-                </Link>
-                <Link href="/toptan" className="inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-espresso px-8 py-4 text-base font-bold text-cream shadow-[0_12px_30px_rgba(43,29,20,0.2)] transition hover:-translate-y-0.5 hover:bg-leaf hover:shadow-[0_16px_34px_rgba(43,29,20,0.26)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-espresso sm:min-h-16 sm:px-9">
-                  Toptan teklif al
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative min-h-[22rem] overflow-hidden sm:min-h-[28rem] lg:min-h-full">
-            <Image src="/images/furks-roastery-hero.png" alt="Kavurma makinesinde taze kahve çekirdeklerini kontrol eden Furks Kahve kavurucusu" fill priority sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover object-[62%_center]" />
-            <div className="absolute inset-0 bg-cream/10" />
-            <div className="absolute inset-0 bg-gradient-to-r from-cream/30 via-transparent to-espresso/5 lg:from-cream/45" />
-            <div className="absolute bottom-5 left-5 rounded-2xl border border-white/20 bg-espresso/75 px-4 py-3 text-cream shadow-lg backdrop-blur sm:bottom-7 sm:left-7 sm:px-5 sm:py-4">
-              <p className="text-xl font-bold sm:text-2xl">Aynı hafta</p>
-              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-cream/65">Kavrulur ve yola çıkar</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
       <section className="bg-espresso text-cream" aria-label="Furks Kahve sayılarla">
         <div className="mx-auto grid max-w-7xl divide-y divide-cream/15 px-5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-8 lg:px-10">

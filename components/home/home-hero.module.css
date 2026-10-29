@@ -1,0 +1,294 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  height: calc(100svh - 80px);
+  min-height: 620px;
+  max-height: 980px;
+  overflow: hidden;
+  background: #332419;
+  color: #f5ede0;
+}
+
+.hero::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #332419 0%,
+    rgb(51 36 25 / 98%) 18%,
+    rgb(43 29 20 / 93%) 30%,
+    rgb(43 29 20 / 76%) 39%,
+    rgb(43 29 20 / 37%) 49%,
+    rgb(43 29 20 / 6%) 60%,
+    transparent 68%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.visual {
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 0 26%;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 18%);
+}
+
+.storefront {
+  object-fit: cover;
+  object-position: right center;
+}
+
+.layout {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  width: min(88%, 1536px);
+  height: 100%;
+  margin-inline: auto;
+  padding-block: 40px;
+}
+
+.brand {
+  width: 480px;
+  max-width: 44vw;
+}
+
+.brandLocation {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0 0 clamp(24px, 3.7svh, 36px);
+  color: #c1c5a8;
+  font-size: clamp(11px, 0.8vw, 14px);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brandLocation::before {
+  width: 48px;
+  height: 1px;
+  flex-shrink: 0;
+  background: currentColor;
+  opacity: 0.7;
+  content: "";
+}
+
+.brandLocation > span {
+  margin-inline: 3px;
+  opacity: 0.75;
+}
+
+.identity {
+  display: flex;
+  width: 400px;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.emblem {
+  width: clamp(184px, 27svh, 248px);
+  height: auto;
+}
+
+.brandName {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: clamp(30px, 2.4vw, 42px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.brandSignature {
+  margin-top: 8px;
+  padding-left: 5px;
+  font-size: clamp(10px, 0.75vw, 13px);
+  line-height: 1.4;
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+}
+
+.statement {
+  margin: 22px 0 0 24px;
+}
+
+.statement::before {
+  display: block;
+  width: 156px;
+  height: 1px;
+  background: #c8642b;
+  content: "";
+}
+
+.brandDescription {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.4vw, 23px);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin: 30px 0 0 12px;
+}
+
+.actions a {
+  display: inline-flex;
+  min-height: 58px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 15px 28px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  transition: background-color 180ms, border-color 180ms;
+}
+
+.primaryAction {
+  min-width: 240px;
+  /* A deeper roast tone keeps white button text above 4.5:1. */
+  background: #bd5a24;
+  color: #fff;
+}
+
+.primaryAction:hover {
+  background: #a84d1d;
+}
+
+.actions .secondaryAction {
+  min-width: 204px;
+  border-color: rgb(245 237 224 / 80%);
+  color: #f5ede0;
+}
+
+.secondaryAction:hover {
+  border-color: #f5ede0;
+  background: rgb(245 237 224 / 10%);
+}
+
+.actions svg {
+  width: 20px;
+  height: 20px;
+}
+
+.actions a:focus-visible {
+  outline: 2px solid #f5ede0;
+  outline-offset: 5px;
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  .brand { width: 400px; }
+  .brandLocation { gap: 13px; }
+  .brandLocation::before { width: 32px; }
+  .identity { width: 340px; }
+  .emblem { width: 200px; }
+  .actions { gap: 12px; margin-left: 0; }
+  .actions a {
+    min-width: 0;
+    min-height: 52px;
+    padding-inline: 22px;
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 900px) and (max-height: 740px) {
+  .brandLocation { margin-bottom: 26px; }
+  .emblem { width: 190px; }
+  .statement { margin-top: 20px; }
+  .actions { margin-top: 26px; }
+}
+
+@media (max-width: 899px) {
+  .hero {
+    display: flex;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    flex-direction: column;
+    background: #2b1d14;
+  }
+  .hero::after { display: none; }
+  .layout {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    padding: 34px 24px 28px;
+  }
+  .brand {
+    display: flex;
+    width: 480px;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .brandLocation { gap: 14px; margin-bottom: 22px; font-size: 11px; }
+  .brandLocation::before { width: 30px; }
+  .emblem { width: 164px; }
+  .brandName { margin-top: 12px; font-size: 32px; }
+  .brandSignature { margin-top: 6px; font-size: 10px; }
+  .statement { margin: 20px 0 0; }
+  .statement::before { width: 120px; margin-inline: auto; }
+  .brandDescription { margin-top: 14px; font-size: 20px; }
+  .actions { margin: 24px 0 0; }
+  .actions a {
+    min-width: 0;
+    min-height: 50px;
+    padding-inline: 24px;
+    font-size: 14px;
+  }
+  .visual {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: clamp(280px, 64vw, 480px);
+    mask-image: none;
+  }
+  .visual::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #2b1d14 0%, rgb(43 29 20 / 25%) 13%, transparent 30%);
+    content: "";
+    pointer-events: none;
+  }
+  .storefront { object-position: right 35%; }
+}
+
+@media (max-width: 479px) {
+  .layout { padding: 28px 24px 20px; }
+  .brandLocation { gap: 10px; margin-bottom: 20px; font-size: 9px; letter-spacing: 0.15em; }
+  .brandLocation::before { width: 24px; }
+  .emblem { width: 134px; }
+  .brandName { font-size: clamp(25px, 7vw, 30px); letter-spacing: 0.12em; }
+  .brandSignature { font-size: 9px; }
+  .statement { margin-top: 18px; }
+  .brandDescription { font-size: 18px; }
+  .actions {
+    display: grid;
+    width: min(100%, 340px);
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .actions a { min-height: 48px; padding-block: 12px; }
+  .visual { height: clamp(280px, 76vw, 360px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .actions a { transition: none; }
+}
